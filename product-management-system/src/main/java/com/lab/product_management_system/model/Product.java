@@ -1,5 +1,7 @@
 package com.lab.product_management_system.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.lab.product_management_system.config.CategoryDeserializer;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,7 +16,8 @@ public class Product {
     private String description;
     private double price;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JsonDeserialize(using = CategoryDeserializer.class)
     @JoinColumn(name = "category_id")
     private Category category;
 

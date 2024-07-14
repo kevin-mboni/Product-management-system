@@ -16,7 +16,8 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Product> products;
-
+    public Category() {}
+    public Category(String name) {}
     // Getters and setters
 
     public Long getId() {
