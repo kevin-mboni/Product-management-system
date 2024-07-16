@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Additional Data</title>
+</head>
+<body>
+<h1>Additional Data</h1>
+<form action="#" th:action="@{/additional-data}" th:method="post">
+    <div>
+        <label for="key">Key:</label>
+        <input type="text" id="key" name="key">
+    </div>
+    <div>
+        <label for="value">Value:</label>
+        <input type="text" id="value" name="value">
+    </div>
+    <div>
+        <button type="submit">Add Data</button>
+    </div>
+</form>
+
+<h2>Data</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Data key</th>
+        <th>data</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="data : ${additionalData}">
+        <td th:text="${data.key}">Key</td>
+        <td th:text="${data.value}">Value</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

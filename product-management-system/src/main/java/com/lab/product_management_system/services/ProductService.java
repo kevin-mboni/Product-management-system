@@ -1,6 +1,5 @@
 package com.lab.product_management_system.services;
 
-import com.lab.product_management_system.model.Category;
 import com.lab.product_management_system.model.Product;
 import com.lab.product_management_system.repository.ProductRepository;
 import com.lab.product_management_system.tree.ProductBinaryTree;
@@ -18,17 +17,6 @@ public class ProductService {
 
     private ProductBinaryTree productBinaryTree = new ProductBinaryTree();
 
-//    @Transactional
-//    public Product createProduct(Product product) {
-//        Category category = product.getCategory();
-//        if (category != null && category.getId() == null) {
-//            // Save the category first if it doesn't have an ID
-//            category = categoryRepository.save(category);
-//            product.setCategory(category);
-//        }
-//        return productRepository.save(product);
-//    }
-
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
@@ -37,12 +25,14 @@ public class ProductService {
         return productRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public Product createProduct(Product product) {
         Product savedProduct = productRepository.save(product);
         productBinaryTree.add(savedProduct);
         return savedProduct;
     }
 
+    @Transactional
     public Product updateProduct(Long id, Product product) {
         product.setId(id);
         Product updatedProduct = productRepository.save(product);
@@ -50,6 +40,7 @@ public class ProductService {
         return updatedProduct;
     }
 
+    @Transactional
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
         productBinaryTree.delete(id);
@@ -58,9 +49,12 @@ public class ProductService {
     public boolean containsProduct(Long id) {
         return productBinaryTree.containsProduct(id);
     }
-
+    public List<Product> searchProductsByName(String name) {
+        return productRepository.findByNameContainingIgnoreCase(name);
+    }
     public Product searchProduct(Long id) {
         return productBinaryTree.search(id);
     }
-}
 
+
+}

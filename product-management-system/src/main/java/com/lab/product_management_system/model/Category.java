@@ -1,7 +1,6 @@
 package com.lab.product_management_system.model;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
@@ -16,8 +15,13 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Product> products;
+
     public Category() {}
-    public Category(String name) {}
+
+    public Category(String name) {
+        this.name = name;
+    }
+
     // Getters and setters
 
     public Long getId() {
@@ -44,4 +48,3 @@ public class Category {
         this.products = products;
     }
 }
-

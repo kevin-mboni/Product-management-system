@@ -13,25 +13,15 @@ public class AdditionalDataServices {
     @Autowired
     private AdditionalDataRepository additionalDataRepository;
 
-    public List<AdditionalData> getAllAdditionalData() {
+    public List<AdditionalData> getAllData() {
         return additionalDataRepository.findAll();
     }
 
-    public AdditionalData getAdditionalDataByProductId(String id) {
-        return additionalDataRepository.findById(id).orElse(null);
+    public AdditionalData createData(AdditionalData data) {
+        return additionalDataRepository.save(data);
     }
 
-    public AdditionalData createAdditionalData(AdditionalData additionalData) {
-        return additionalDataRepository.save(additionalData);
-    }
-
-    public AdditionalData updateAdditionalData(String id, AdditionalData additionalData) {
-        additionalData.setId(id);
-        return additionalDataRepository.save(additionalData);
-    }
-
-    public void deleteAdditionalData(String id) {
+    public void deleteData(String id) {
         additionalDataRepository.deleteById(id);
     }
 }
-

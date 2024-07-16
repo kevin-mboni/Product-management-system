@@ -1,24 +1,27 @@
 package com.lab.product_management_system.controllers;
 
 import com.lab.product_management_system.model.Category;
+import com.lab.product_management_system.model.Product;
 import com.lab.product_management_system.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/categories")
+@Controller
+@RequestMapping("/categories")
 public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
-        Category createdCategory = categoryService.createCategory(category);
-        return ResponseEntity.ok(createdCategory);
+    public String createCategory(@ModelAttribute Category category) {
+        categoryService.createCategory(category);
+        return "redirect:/categories";
     }
 
     @GetMapping("/{id}")
@@ -28,9 +31,10 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Category>> getAllCategories() {
+    public String getAllCategories(Model model) {
         List<Category> categories = categoryService.getAllCategories();
-        return ResponseEntity.ok(categories);
+        model.addAttribute("categories", categories);
+        return "categories";
     }
 
     @PutMapping("/{id}")

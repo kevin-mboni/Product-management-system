@@ -26,8 +26,9 @@ public class CategoryService {
     }
 
     public Category updateCategory(Long id, Category category) {
-        category.setId(id);
-        return categoryRepository.save(category);
+        Category existingCategory = categoryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid category Id:" + id));
+        existingCategory.setName(category.getName());
+        return categoryRepository.save(existingCategory);
     }
 
     public void deleteCategory(Long id) {
